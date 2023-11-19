@@ -1,0 +1,70 @@
+﻿@model List<web_nag_cao.Models.KhachHang>
+@{
+    ViewBag.Title = "Khách hàng";
+    Layout = "~/Views/Shared/LayuotHeaderADmin.cshtml";
+    ViewBag.SearchAction = "/KhachHang/HienThiKH";
+    ViewBag.search = ViewBag.timkiem;
+}
+
+<div class="grid__row">
+    <div class="container mt-5">
+        <h2>Danh Sách Khách hàng </h2>
+        <a href="@Url.Action("ThemKH", "KhachHang" )" class="btn btn-success nut">Thêm khách hàng</a>
+        <div class="">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Mã khách hàng</th>
+                        <th>Tên khách hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Địa chỉ</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.MaKH</td>
+                            <td>@(string.IsNullOrEmpty(item.TenKH)?"Không có thông tin":item.TenKH)</td>
+                            <td>@(string.IsNullOrEmpty(item.SoDT)?"Không có thông tin":item.SoDT)</td>
+                            <td>@(string.IsNullOrEmpty(item.Email)?"Không có thông tin":item.Email)</td>
+                            <td>@(string.IsNullOrEmpty(item.DiaChi)?"Không có thông tin":item.DiaChi)</td>
+                            <td class="chucnang">
+                                <a href="@Url.Action("Edit", "KhachHang", new { id = item.MaKH } )" class="btn btn-success">Edit</a>
+                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete-@item.MaKH">Delete</a>
+                                <!-- Modal xác nhận xóa -->
+                                <div class="modal fade" id="confirmDelete-@item.MaKH" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Mã khách hàng: @item.MaKH<br />
+                                                Tên khách hàng:@(string.IsNullOrEmpty(item.TenKH)?"Không có thông tin":item.TenKH)
+                                                <br />
+                                                <h4>Bạn có chắc chắn muốn xóa?</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                                <!-- Nếu xác nhận, chuyển hướng đến trang xóa -->
+                                                <a href="@Url.Action("Delete", "KhachHang", new { id = item.MaKH })" class="btn btn-danger">Xác nhận xóa</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Sửa Hóa Đơn";
+    Layout = null;
+    int mahd = ViewBag.MaHD;
+    var db = new web_nag_cao.Models.Web_nag_caoEntities();
+    var ketqua = (from hd in db.HoaDons
+                  join ctHD in db.ChiTietHoaDons on hd.MaHD equals ctHD.MaHD
+                  join KH in db.KhachHangs on hd.MaKh equals KH.MaKH
+                  join sp in db.SanPhams on ctHD.MaSP equals sp.MaSP
+                  where hd.MaHD == mahd
+                  select new
+                  {
+                      hd.MaHD,
+                      KH.TenKH,
+                      hd.MaKh,
+                      sp.TenSP,
+                      sp.GiaBan,
+                      ctHD.SoLuong,
+                      ctHD.MaSP,
+                      sp.HinhAnh,
+                  }).ToList();
+}
+<!-- Chèn các tệp CSS và JS của Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="container">
+    <h2>Sửa Hóa Đơn</h2>
+
+    @using (Html.BeginForm("suaHD", "HoaDon", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        foreach (var item in ketqua)
+        {
+            <div class="form-group">
+                <label class="control-label col-md-2" for="MaHD">Số Hóa Đơn: </label>
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => item.MaHD, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="MaKh">Tên Khách Hàng:</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("MaKh", (SelectList)ViewBag.DanhSachTenKhachHang,item.TenKH,  new { @class = "form-control", selected = ViewBag.TenKH })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="MaSP">Tên Sản Phẩm:</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("MaSP", (SelectList)ViewBag.DanSachSP,item.TenSP ,new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="GiaBan">Giá Bán:@item.GiaBan</label>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="SoLuong">Số Lượng:</label>
+                <div class="col-md-10">
+                    @*@Html.TextBox("SoLuong",model => item.SoLuong, new { @class = "form-control" })*@
+                    @Html.TextBox("SoLuong", item.SoLuong, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="HinhAnh">Hình Ảnh:</label>
+                <div class="col-md-10">
+                    <img src="@Url.Content(@item.HinhAnh)" alt="Hình ảnh" width="50" height="50" />
+                </div>
+            </div>
+
+            <!-- Thêm các trường khác nếu cần -->
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+
+</div>
+
+

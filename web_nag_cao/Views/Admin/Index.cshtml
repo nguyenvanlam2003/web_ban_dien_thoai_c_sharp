@@ -1,0 +1,199 @@
+﻿@model  List<web_nag_cao.Models.SanPham>
+@{
+    ViewBag.Title = "Trang chủ Hoàng Hà Mobile";
+    Layout = "~/Views/Shared/LayuotHeaderADmin.cshtml";
+    ViewBag.SearchAction = "/Admin/index";
+    ViewBag.search = ViewBag.timkiem;
+}
+
+<div class="app__container">
+    <div class="grid">
+        <div class="grid__row app__content">
+            <div class="grid__column-2">
+                <nav class="category">
+                    <h3 class="category__heading">
+                        <!-- <i class="category__heading-icon fa-solid fa-list"></i> -->
+                        <i class="ti-menu category__heading-icon"></i>
+                        Danh mục
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="@Url.Action("hienthitheohang", "Admin", new { hangsx = "Iphone" })" class="category-item__link">Iphone</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="@Url.Action("hienthitheohang", "Admin", new { hangsx = "Samsung" })" class="category-item__link">Samsung</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="grid__column-10">
+                <div class="home-filter">
+                    <span class="home-filter__label">Lọc danh sách:</span>
+                    <div class="select-input">
+                        <div class="select-input__price">
+                            <span class="select-input__text">@ViewBag.PriceRange</span>
+
+                            <i class="ti-angle-down select-input__icon"></i>
+                            <ul class="select-input__list-price">
+                                <li class="select-input__item">
+                                    <a href="@Url.Action("locgia", "Admin", new { priceRange = "Giá" })" class="select-input__link" @*onclick="updateText('Giá')"*@>Giá</a>
+
+                                </li>
+                                <li class="select-input__item">
+                                    <a href="@Url.Action("locgia", "Admin", new { priceRange = "Dưới 10 triệu" })" class="select-input__link" @*onclick="updateText('Dưới 10 triệu')"*@>Dưới 10 triệu</a>
+
+                                </li>
+                                <li class="select-input__item">
+                                    <a href="@Url.Action("locgia", "Admin", new { priceRange = "Từ 10 đến 20 triệu" })" class="select-input__link" @*onclick="updateText('10 đến 20 triệu')"*@>10 đến 20 triệu</a>
+                                </li>
+                                <li class="select-input__item">
+                                    <a href="@Url.Action("locgia", "Admin", new { priceRange = "Trên 20 triệu" })" class="select-input__link" @*onclick="updateText('Trên 20 triệu')"*@>Trên 20 triệu</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="select-input__option">
+                            <span class="select-input__text">@ViewBag.RamRange</span>
+                            <!-- <i class="fa-solid fa-chevron-down select-input__icon"></i> -->
+                            <i class="ti-angle-down select-input__icon"></i>
+                            <ul class="select-input__list-option">
+                                <div class="select-input-wrap">
+                                <li class="select-input__item">
+                                    <a href="@Url.Action("locRam", "Admin", new { ramRange = "4GB" })" class="select-input__link">4GB</a>
+                                </li>
+                                <li class="select-input__item">
+                                    <a href="@Url.Action("locRam", "Admin", new { ramRange = "6GB" })" class="select-input__link">6GB</a>
+                                </li>
+                                <li class="select-input__item">
+                                    <a href="@Url.Action("locRam", "Admin", new { ramRange = "8GB" })" class="select-input__link">8GB</a>
+                                </li>
+
+                        </div>
+                        </ul>
+                    </div>
+                    <div class="select-input__sort">
+                        <span class="select-input__text">@ViewBag.sapXep</span>
+                        <!-- <i class="fa-solid fa-chevron-down select-input__icon"></i> -->
+                        <i class="ti-angle-down select-input__icon"></i>
+                        <!-- List options -->
+                        <ul class="select-input__list-sort">
+                            <li class="select-input__item">
+                                <a href="@Url.Action("SapXepGia","Admin", new { sortPrice = "Sắp xếp" })" class="select-input__link">Sắp xếp</a>
+                            </li>
+                            <li class="select-input__item">
+                                <a href="@Url.Action("SapXepGia","Admin", new { sortPrice = "Giá thấp đến cao" })" class="select-input__link">Giá thấp đến cao</a>
+                            </li>
+                            <li class="select-input__item">
+                                <a href="@Url.Action("SapXepGia","Admin", new { sortPrice = "Giá cao đến thấp" })" class="select-input__link">Giá cao đến thấp</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="home-product">
+                <div class="grid__row">
+                    <div class="container mt-5">
+                        <h2>Danh Sách Sản Phẩm</h2>
+                        <div class="table-responsive">
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th>Mã SP</th>
+                                        <th>Tên Sản Phẩm</th>
+                                        <th>Giá Bán</th>
+                                        <th>Hãng Sản Xuất</th>
+                                        <th>Bộ Nhớ</th>
+                                        <th>Màu</th>
+                                        <th>Màn Hình</th>
+                                        <th>Độ Phân Giải</th>
+                                        <th>Vi Xử Lý</th>
+                                        <th>Ram</th>
+                                        <th>Dung Lượng Pin</th>
+                                        <th>Hình Ảnh</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.MaSP</td>
+                                            <td>@(string.IsNullOrEmpty(item.TenSP)?"Không có thông tin":item.TenSP)</td>
+                                            <td>@(item.GiaBan != null ? item.GiaBan.Value.ToString("N0") + "đ" : "Không có thông tin")</td>
+                                            <td>@(string.IsNullOrEmpty(item.HangSX)?"Không có thông tin":item.HangSX)</td>
+                                            <td>@(string.IsNullOrEmpty(item.BoNho)?"Không có thông tin":item.BoNho)</td>
+                                            <td>@(string.IsNullOrEmpty(item.Mau)?"Không có thông tin":item.Mau)</td>
+                                            <td>@(string.IsNullOrEmpty(item.ManHinh)?"Không có thông tin":item.ManHinh)</td>
+                                            <td>@(string.IsNullOrEmpty(item.DoPhanGiai)?"Không có thông tin":item.DoPhanGiai)</td>
+                                            <td>@(string.IsNullOrEmpty(item.ViXuLy)?"Không có thông tin":item.ViXuLy)</td>
+                                            <td>@(string.IsNullOrEmpty(item.Ram) ? "Không có thông tin" : item.Ram)</td>
+                                            <td>@(string.IsNullOrEmpty(item.DungLuongPin)?"Không có thông tin":item.DungLuongPin)</td>
+
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(item.HinhAnh))
+                                                {
+                                                    <img src="@Url.Content(item.HinhAnh)" alt="Hình ảnh sản phẩm" style="max-width: 100px; max-height: 100px; border: 1px solid #ddd; display: block; margin: 0 auto;">
+                                                }
+                                                else
+                                                {
+                                                    <span>Không có ảnh</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <!-- Thêm các nút hoặc liên kết cho Edit và Delete -->
+                                                <a href="@Url.Action("Edit", "Admin", new { id = item.MaSP } )" class="btn btn-success nut">Edit</a>
+                                                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete-@item.MaSP">Delete</a>
+
+                                                <!-- Modal xác nhận xóa -->
+                                                <div class="modal fade" id="confirmDelete-@item.MaSP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Mã sản phẩm: @item.MaSP<br />
+                                                                Tên sản phẩm:@(string.IsNullOrEmpty(item.TenSP)?"Không có thông tin":item.TenSP)
+                                                                <br />
+                                                                @if (!string.IsNullOrEmpty(item.HinhAnh))
+                                                                {
+                                                                    <img src="@Url.Content(item.HinhAnh)" alt="Hình ảnh sản phẩm" style="max-width: 100px; max-height: 100px; border: 1px solid #ddd; display: block; margin: 0 auto;">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>Không có ảnh</span>
+                                                                }
+                                                            <h4>Bạn có chắc chắn muốn xóa?</h4> 
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                                                <!-- Nếu xác nhận, chuyển hướng đến trang xóa -->
+                                                                <a href="@Url.Action("Delete", "Admin", new { id = item.MaSP })" class="btn btn-danger">Xác nhận xóa</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="home-product__more-product">
+                    <a href="">Không còn sản phẩm nào..!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+

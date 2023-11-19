@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4444736563cf4f2aba35fbe3950240ea" Name="Diagram1">
+        <EntityTypeShape EntityType="Web_nag_caoModel.ChiTietGioHang" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_nag_caoModel.ChiTietHoaDon" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_nag_caoModel.GioHang" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_nag_caoModel.HoaDon" Width="1.5" PointX="7" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_nag_caoModel.KhachHang" Width="1.5" PointX="1.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_nag_caoModel.SanPham" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_nag_caoModel.sysdiagram" Width="1.5" PointX="3.75" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="Web_nag_caoModel.FK_ChiTietGioHang_GioHang" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_nag_caoModel.FK_ChiTietGioHang_SanPham" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_nag_caoModel.FK_ChiTietHoaDon_HoaDon" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_nag_caoModel.FK_ChiTietHoaDon_SanPham" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_nag_caoModel.FK_GioHang_KhachHang" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_nag_caoModel.FK_HoaDon_KhachHang" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

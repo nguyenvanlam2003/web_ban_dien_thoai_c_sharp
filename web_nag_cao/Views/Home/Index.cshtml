@@ -1,0 +1,167 @@
+﻿@model  List<web_nag_cao.Models.SanPham>
+@{
+    ViewBag.Title = "Trang chủ Hoàng Hà Mobile";
+    Layout = "~/Views/Shared/layoutUser.cshtml";
+    ViewBag.SearchAction = "/Home/index";
+    ViewBag.search = ViewBag.timkiem;
+}
+
+<div class="app__container">
+    <div class="grid">
+        <div class="grid__row app__content">
+            <div class="grid__column-2">
+                <nav class="category">
+                    <h3 class="category__heading">
+                        <!-- <i class="category__heading-icon fa-solid fa-list"></i> -->
+                        <i class="ti-menu category__heading-icon"></i>
+                        Danh mục
+                    </h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="@Url.Action("hienthitheohang", "Home", new { hangsx = "Iphone" })" class="category-item__link">Iphone</a>
+                        </li>
+                        <li class="category-item">
+                            <a href="@Url.Action("hienthitheohang", "Home", new { hangsx = "Samsung" })" class="category-item__link">Samsung</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="grid__column-10">
+                <div class="home-filter">
+                    <span class="home-filter__label">Lọc danh sách:</span>
+                    <div class="select-input">
+                        <div class="select-input__price">
+                            <span class="select-input__text">@ViewBag.PriceRange</span>
+                            <!-- <i class="fa-solid fa-chevron-down select-input__icon"></i> -->
+                            <i class="ti-angle-down select-input__icon"></i>
+                            <ul class="select-input__list-price">
+                                <li class="select-input__item">
+                                    <a href="@Url.Action("locgia", "Home", new { priceRange = "Giá" })" class="select-input__link" @*onclick="updateText('Giá')"*@>Giá</a>
+
+                                </li>
+                                <li class="select-input__item">
+                                    <a href="@Url.Action("locgia", "Home", new { priceRange = "Dưới 10 triệu" })" class="select-input__link" @*onclick="updateText('Dưới 10 triệu')"*@>Dưới 10 triệu</a>
+
+                                </li>
+                                <li class="select-input__item">
+                                    <a href="@Url.Action("locgia", "Home", new { priceRange = "Từ 10 đến 20 triệu" })" class="select-input__link" @*onclick="updateText('10 đến 20 triệu')"*@>10 đến 20 triệu</a>
+                                </li>
+                                <li class="select-input__item">
+                                    <a href="@Url.Action("locgia", "Home", new { priceRange = "Trên 20 triệu" })" class="select-input__link" @*onclick="updateText('Trên 20 triệu')"*@>Trên 20 triệu</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="select-input__option">
+                            <span class="select-input__text">@ViewBag.RamRange</span>
+                            <!-- <i class="fa-solid fa-chevron-down select-input__icon"></i> -->
+                            <i class="ti-angle-down select-input__icon"></i>
+                            <ul class="select-input__list-option">
+                                <div class="select-input-wrap">
+                                <li class="select-input__item">
+                                    <a href="@Url.Action("locRam", "Home", new { ramRange = "4GB" })" class="select-input__link">4GB</a>
+                                </li>
+                                <li class="select-input__item">
+                                    <a href="@Url.Action("locRam", "Home", new { ramRange = "6GB" })" class="select-input__link">6GB</a>
+                                </li>
+                                <li class="select-input__item">
+                                    <a href="@Url.Action("locRam", "Home", new { ramRange = "8GB" })" class="select-input__link">8GB</a>
+                                </li>
+
+                        </div>
+                        </ul>
+                    </div>
+                    <div class="select-input__sort">
+                        <span class="select-input__text">@ViewBag.sapXep</span>
+                        <!-- <i class="fa-solid fa-chevron-down select-input__icon"></i> -->
+                        <i class="ti-angle-down select-input__icon"></i>
+                        <!-- List options -->
+                        <ul class="select-input__list-sort">
+                            <li class="select-input__item">
+                                <a href="@Url.Action("SapXepGia","Home", new { sortPrice = "Sắp xếp" })" class="select-input__link">Sắp xếp</a>
+                            </li>
+                            <li class="select-input__item">
+                                <a href="@Url.Action("SapXepGia","Home", new { sortPrice = "Giá thấp đến cao" })" class="select-input__link">Giá thấp đến cao</a>
+                            </li>
+                            <li class="select-input__item">
+                                <a href="@Url.Action("SapXepGia","Home", new { sortPrice = "Giá cao đến thấp" })" class="select-input__link">Giá cao đến thấp</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="home-product">
+                <div class="grid__row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="grid__column-2-4">
+                            <a href="@Url.Action("chiTietSP","Home", new { id = item.MaSP })" class="home-product-item-link">
+                                <div class="home-product-item">
+                                    <div class="home-product-item__sticker">
+                                        <span><img src="~/Content/css/img/apple.png" title="Sản phẩm HOT"></span>
+                                    </div>
+                                    @{ if (!string.IsNullOrEmpty(item.HinhAnh))
+                                        {
+                                            <div class="home-product-item__img" style="background-image: url('@Url.Content(item.HinhAnh)');"></div>
+                                        }
+                                        else
+                                        {
+                                            <div class="home-product-item__img"></div>
+                                        }
+                                    }
+                                    <h4 class="home-product-item__name">
+                                        @(string.IsNullOrEmpty(item.TenSP)?"":item.TenSP)
+                                        @*iPhone 14 Pro Max (128GB) -
+                                            Chính hãng VN/A*@
+                                    </h4>
+                                    <div class="home-product-item__price">
+                                        <span class="home-product-item__price-current">@*27.290.000đ*@ @(item.GiaBan != null ? item.GiaBan.Value.ToString("N0") + "đ" : "")</span>
+                                        <span class="home-product-item__price-old">28.990.000đ</span>
+                                    </div>
+                                    <div class="home-product-item__note">
+                                        <span class="home-product-item__note-bag">KM</span>
+                                        <span class="home-product-item__note-title">
+                                            Giảm tới 300.000đ khi thanh toán qua VNAY (Áp dụng từ 1/4 - 30/4)
+                                        </span>
+                                        <span class="home-product-item__note-txt">
+                                            và 4 KM KHÁC
+                                        </span>
+                                    </div>
+                                    <div class="home-product__note-detail">
+                                        <a href="@Url.Action("chiTietSP","Home", new { id = item.MaSP })" class="home-product__note-detail-link">
+                                            <ul class="home-product__note-list">
+                                                <li class="home-product__note-item">
+                                                    <span class="home-product-item__note-bag">KM</span>
+                                                    <span class="home-product__note-item-txt"></span>
+                                                    Thanh toán qua Moca tặng ngay đế sạc trị giá 320.000đ (Cho hóa đơn có tổng giá trị từ 18 Triệu) - Áp dụng từ 01/04
+                                                </li>
+                                                <li class="home-product__note-item">
+                                                    <span class="home-product-item__note-bag">KM</span>
+                                                    Giảm thêm tới 800.000đ khi mở thẻ tín dụng TPBank EVO
+                                                </li>
+                                                <li class="home-product__note-item">
+                                                    <span class="home-product-item__note-bag">KM</span>
+                                                    Trả góp qua Homepaylater giảm thêm tới 500.000đ, duyệt nhanh chỉ 30s
+                                                </li>
+                                                <li class="home-product__note-item">
+                                                    <span class="home-product-item__note-bag">KM</span>
+                                                    Mở thẻ tín dụng VPBank nhận ưu đãi tới 1.500.000đ
+                                                </li>
+                                            </ul>
+                                        </a>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="home-product__more-product">
+                <a href="">Không còn sản phẩm nào..!</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

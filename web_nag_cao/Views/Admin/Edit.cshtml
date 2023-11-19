@@ -1,0 +1,113 @@
+﻿
+@model web_nag_cao.Models.SanPham
+@{
+    ViewBag.Title = "Sửa sản phẩm";
+    Layout = null;
+}
+
+<title>Thêm Sản Phẩm</title>
+<!-- Chèn các tệp CSS và JS của Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="container mt-5">
+    <h2>Sửa Sản Phẩm</h2>
+    <h2>Mã sản phẩm: @Model.MaSP</h2>
+    @using (Html.BeginForm("Edit", "Admin", new { MaSP = Model.MaSP }, FormMethod.Post, new { enctype = "multipart/form-data", id = "myForm" }))
+    {
+        <div class="row">
+            <!-- Cột 1 -->
+            <div class="col-md-6">
+                <!-- Tên sản phẩm -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.TenSP, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.TenSP, new { @class = "form-control" })
+                </div>
+
+                <!-- Giá sản phẩm -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.GiaBan, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.GiaBan, new { @class = "form-control" })
+                </div>
+
+                <!-- Hãng sản xuất -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.HangSX, new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.HangSX, new SelectList(new[] { "Iphone", "Samsung" }), new { @class = "form-select" })
+                </div>
+
+                <!-- Bộ nhớ -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.BoNho, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.BoNho, new { @class = "form-control" })
+                </div>
+
+                <!-- Màu -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Mau, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Mau, new { @class = "form-control" })
+                </div>
+
+                <!-- Hình ảnh sản phẩm -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.HinhAnh, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.HinhAnh, new { type = "file", @class = "form-control", accept = ".jpg, .jpeg, .png, .webp" })
+                </div>
+            </div>
+
+            <!-- Cột 2 -->
+            <div class="col-md-6">
+                <!-- Màn hình -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.ManHinh, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.ManHinh, new { @class = "form-control" })
+                </div>
+
+                <!-- Độ phân giải -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.DoPhanGiai, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.DoPhanGiai, new { @class = "form-control" })
+                </div>
+
+                <!-- Vi xử lý -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.ViXuLy, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.ViXuLy, new { @class = "form-control" })
+                </div>
+
+                <!-- Ram -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Ram, new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.Ram, new SelectList(new[] { "4GB", "6GB", "8GB" }), new { @class = "form-select" })
+                </div>
+
+                <!-- Dung lượng pin -->
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.DungLuongPin, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.DungLuongPin, new { @class = "form-control" })
+                </div>
+
+                <!-- Hiển thị hình ảnh -->
+                <div class="mb-3">
+                    @if (!string.IsNullOrEmpty(Model.HinhAnh))
+                    {
+                        <img src="@Url.Content(Model.HinhAnh)" alt="Hình ảnh sản phẩm" style="max-width: 100px; max-height: 100px; border: 1px solid #ddd; display: block; margin: 0 auto;">
+                    }
+                    else
+                    {
+                        <span>Không có thông tin</span>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Nút Submit và Nút Quay Lại -->
+        <button type="submit" class="btn btn-success">Sửa Sản Phẩm</button>
+        <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Quay Lại</a>
+    }
+</div>
+
+
+
+
+

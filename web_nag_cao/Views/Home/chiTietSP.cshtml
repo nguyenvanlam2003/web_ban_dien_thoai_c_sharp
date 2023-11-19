@@ -1,0 +1,874 @@
+﻿@model web_nag_cao.Models.SanPham
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/layoutUser.cshtml";
+    ViewBag.SearchAction = "/Home/Index";
+    ViewBag.search = ViewBag.timkiem;
+}
+
+<div class="grid">
+    <div class="titile-product">
+        <h1>  @(string.IsNullOrEmpty(Model.TenSP)?"":Model.TenSP)</h1>
+    </div>
+    <div class="grid__row">
+        <div class="grid__column-3-5">
+            <div class="slider product-details-slider">
+                <div class="direction-arrow">
+                    @*<i class="ti-angle-left product-details-icon-left" onclick="prev()"></i>
+                        <i class="ti-angle-right product-details-icon-right" onclick="next()"></i>*@
+                </div>
+                <div class="next-slides">
+                    @*<img src="./assets/css/img/14 pro max black.webp" alt="" class="product-details-slider-img slider__img">*@
+                    @if (!string.IsNullOrEmpty(Model.HinhAnh))
+                    {
+                        <img src="@Url.Content(Model.HinhAnh)" alt="Hình ảnh sản phẩm" class="product-details-slider-img slider__img">
+                    }
+                    else
+                    {
+                        <span>Không có ảnh</span>
+                    }
+                    @*<img src="./assets/css/img/14 pro max gold.webp" alt="" class="product-details-slider-img slider__img">
+                        <img src="./assets/css/img/14 pro max white.webp" alt="" class="product-details-slider-img slider__img">
+                        <img src="./assets/css/img/14 pro max purple.webp" alt="" class="product-details-slider-img slider__img">*@
+                </div>
+            </div>
+
+        </div>
+        <div class="grid__column-5">
+            <div class="product-details-center">
+                <div class="product-details-price">
+                    <span class="product-details-price-strong product-details-price-seperate">@(Model.GiaBan != null ? Model.GiaBan.Value.ToString("N0") + "đ" : "") </span>
+                    <span class="product-details-price-desc">Giá đã bao gồm 10% VAT</span>
+                </div>
+                <div class="product-details-freeship">
+                    <i class="ti-truck product-details-freeship-icon"></i>
+                    <span class="product-details-freeship-text">Miễn phí vận chuyển toàn quốc</span>
+                </div>
+                @*@*<div class="product-details-option-version">
+                        <span class="product-details-option-version-text">
+                            Lựa chọn phiên bản
+                        </span>
+                        <ul class="product-details-option-version-list">
+                            <li class="product-details-option-version-item">
+                                <a href="" class="product-details-option-version-link">
+                                    <input type="radio" name="option" class="product-details-option-select">
+                                    <span class="product-details-option-version-storage">128GB</span>
+                                    <span class="product-details-option-version-price">26,690,000 ₫</span>
+                                </a>
+                            </li>
+                            <li class="product-details-option-version-item">
+                                <a href="" class="product-details-option-version-link">
+                                    <input type="radio" name="option" class="product-details-option-select">
+                                    <span class="product-details-option-version-storage">128GB</span>
+                                    <span class="product-details-option-version-price">26,690,000 ₫</span>
+                                </a>
+                            </li>
+                            <li class="product-details-option-version-item">
+                                <a href="" class="product-details-option-version-link">
+                                    <input type="radio" name="option" class="product-details-option-select">
+                                    <span class="product-details-option-version-storage">128GB</span>
+                                    <span class="product-details-option-version-price">26,690,000 ₫</span>
+                                </a>
+                            </li>
+                            <li class="product-details-option-version-item">
+                                <a href="" class="product-details-option-version-link">
+                                    <input type="radio" name="option" class="product-details-option-select">
+                                    <span class="product-details-option-version-storage">128GB</span>
+                                    <span class="product-details-option-version-price">26,690,000 ₫</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>*@
+                @*<div class="product-details-option-color">
+                        <span class="product-details-option-color-text">
+                            Lựa chọn màu và xem địa chỉ còn hàng
+                        </span>
+                        <ul class="product-details-option-color-list">
+                            <li class="product-details-option-color-item">
+                                <a href="" class="product-details-option-color-link">
+                                    <input type="radio" name="option" class="product-details-option-select">
+                                    <span class="product-details-option-color-style">Space Black</span>
+                                    <span class="product-details-option-color-price">26,690,000 ₫</span>
+                                </a>
+                            </li>
+                            <li class="product-details-option-color-item">
+                                <a href="" class="product-details-option-color-link">
+                                    <input type="radio" name="option" class="product-details-option-select">
+                                    <span class="product-details-option-color-style">Silver</span>
+                                    <span class="product-details-option-color-price">26,890,000 ₫</span>
+                                </a>
+                            </li>
+                            <li class="product-details-option-color-item">
+                                <a href="" class="product-details-option-color-link">
+                                    <input type="radio" name="option" class="product-details-option-select">
+                                    <span class="product-details-option-color-style">Gold</span>
+                                    <span class="product-details-option-color-price">26,890,000 ₫</span>
+                                </a>
+                            </li>
+                            <li class="product-details-option-color-item">
+                                <a href="" class="product-details-option-color-link">
+                                    <input type="radio" name="option" class="product-details-option-select">
+                                    <span class="product-details-option-color-style">Deep Purple</span>
+                                    <span class="product-details-option-color-price">26,890,000 ₫</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>*@
+                <div class="product-details-promotion">
+                    <span class="product-details-promotion-title">Khuyến mãi</span>
+                    <ul class="product-details-promotion-list">
+                        <li class="product-details-promotion-item">
+                            <span class="home-product-item__note-bag">KM 1</span>
+                        </li>
+                        <li class="product-details-promotion-item">
+                            <p class="product-details-promotion-text">
+                                Giảm 150.000đ cho khách hàng thanh toán bằng hình thức
+                                CHUYỂN KHOẢN 100% GIÁ TRỊ ĐƠN HÀNG
+                                (Không áp dụng kèm các ưu đãi thanh toán khác).
+                            </p>
+                        </li>
+                        <li class="product-details-promotion-item">
+                            <span class="home-product-item__note-bag">KM 2</span>
+                        </li>
+                        <li class="product-details-promotion-item">
+                            <p class="product-details-promotion-text">
+                                Thu cũ đổi mới giảm tới 1.000.000đ -
+                            </p>
+                            <a href="" class="product-details-promotion-link">
+                                (Xem chi tiết)
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="product-details-action">
+                    <a href="@Url.Action("muaHang","Home",new {id =Model.MaSP})" class="produtct-details-action-left" onclick="hienThiThongBaoMuaHangThanhCong('@Model.MaSP')">
+                        <strong>MUA NGAY</strong>
+                        <span class="produtct-details-action-text">
+                            Giao tận nhà
+                            <br>
+                            Hoặc Nhận tại cửa hàng
+                        </span>
+                        
+                    </a>
+                    <a href="" class="produtct-details-action-center">
+                        <strong>TRẢ GÓP</strong>
+                        <span class="produtct-details-action-text">
+                            Công ty Tài chính <br>
+                            Hoặc 0% qua thẻ tín dụng
+                        </span>
+                    </a>
+                    <a href="@Url.Action("themGioHang","Home", new { id = Model.MaSP })" class="produtct-details-action-right">
+                        <i class="ti-shopping-cart-full produtct-details-action-icon"></i>
+                        <i class="ti-plus produtct-details-action-icon-plus"></i>
+                        <span class="produtct-details-action-text">Thêm giỏ hàng</span>
+                    </a>
+                </div>
+                <div class="product-details-promotion product-details-promotion-main">
+                    <span class="product-details-promotion-head">
+                        Ưu đãi thanh toán
+                    </span>
+                    <ul class="product-details-promotion-list">
+                        <li class="product-details-promotion-item">
+                            <i class="ti-check product-details-promotion-icon"></i>
+                            <p class="product-details-promotion-text">
+                                Mở ví VNPAY và thanh toán giảm thêm tới 100.000đ -
+                            </p>
+                            <a href="" class="product-details-promotion-link">
+                                (Xem chi tiết)
+                            </a>
+                        </li>
+                        <li class="product-details-promotion-item">
+                            <i class="ti-check product-details-promotion-icon"></i>
+                            <p class="product-details-promotion-text">
+                                Thanh toán qua Moca tặng ngay đế sạc trị giá 320.000đ
+                                (Cho hóa đơn có tổng giá trị từ 6 Triệu) - Áp dụng từ 01/04 -
+                            </p>
+                            <a href="" class="product-details-promotion-link">
+                                (Xem chi tiết)
+                            </a>
+                        </li>
+                        <li class="product-details-promotion-item">
+                            <i class="ti-check product-details-promotion-icon"></i>
+                            <p class="product-details-promotion-text">
+                                Giảm thêm 30% tới 1,2 triệu khi mở thẻ TP Bank EVO - Duyệt nhanh chỉ 15 phút, LH Cửa hàng hoặc 19002091 để được hỗ trợ -
+                            </p>
+                            <a href="" class="product-details-promotion-link">
+                                (Xem chi tiết)
+                            </a>
+                        </li>
+                        <li class="product-details-promotion-item">
+                            <i class="ti-check product-details-promotion-icon"></i>
+                            <p class="product-details-promotion-text">
+                                Trả góp qua Homepaylater giảm thêm tới 500.000đ, duyệt nhanh chỉ 30s-
+                            </p>
+                            <a href="" class="product-details-promotion-link">
+                                (Xem chi tiết)
+                            </a>
+                        </li>
+                        <li class="product-details-promotion-item">
+                            <i class="ti-check product-details-promotion-icon"></i>
+                            <p class="product-details-promotion-text">
+                                Hỗ trợ trả góp 0% qua 26 ngân hàng và công ty tài chính.-
+                            </p>
+                            <a href="" class="product-details-promotion-link">
+                                (Xem chi tiết)
+                            </a>
+                        </li>
+                    </ul>
+                    <span class="product-details-promotion-head">
+                        Ưu đãi đi kèm
+                    </span>
+                    <ul class="product-details-promotion-list">
+                        <li class="product-details-promotion-item">
+                            <i class="ti-check product-details-promotion-icon"></i>
+                            <p class="product-details-promotion-text">
+                                Tặng sim WINTEL(Reddi cũ) 055 chưa bao gồm gói cước
+                                (Trừ shop SiS) Hoặc sim data Mobifone Hera 5G (2GB/ngày)
+                                (Chưa bao gồm tháng đầu tiên) - Lưu ý: áp dụng mua trực tiếp tại cửa hàng. -
+                            </p>
+                            <a href="" class="product-details-promotion-link">
+                                (Xem chi tiết)
+                            </a>
+                        </li>
+                        <li class="product-details-promotion-item">
+                            <i class="ti-check product-details-promotion-icon"></i>
+                            <p class="product-details-promotion-text">
+                                Mua kèm ốp lưng Clear Case with Magsafe Chính hãng -
+                                Ưu đãi thêm tới 300.000đ.
+                            </p>
+                        </li>
+                        <li class="product-details-promotion-item">
+                            <i class="ti-check product-details-promotion-icon"></i>
+                            <p class="product-details-promotion-text">
+                                Tặng esim data Mobifone Hera 5G (2GB/ngày)
+                                (Chưa bao gồm tháng đầu tiên) - Lưu ý: chỉ áp dụng mua trực tiếp tại cửa hàng.
+                            </p>
+                        </li>
+                        <li class="product-details-promotion-item">
+                            <i class="ti-check product-details-promotion-icon"></i>
+                            <p class="product-details-promotion-text">
+                                Giảm thêm 200.000đ cho tất các sản phẩm Màn hình khi mua kèm Laptop,MacBook,
+                                Máy tính bảng và điện thoại.
+                            </p>
+                            <a href="" class="product-details-promotion-link">
+                                (Xem chi tiết)
+                            </a>
+                        </li>
+                        <li class="product-details-promotion-item">
+                            <i class="ti-check product-details-promotion-icon"></i>
+                            <p class="product-details-promotion-text">
+                                Tiết kiệm lên tới 600.000đ khi mua Microsoft 365 (Office) kèm Laptop, MacBook,
+                                Máy tính bảng, Điện thoại (Áp dụng từ 10/4/2023 - 31/5/2023). -
+                            </p>
+                            <a href="" class="product-details-promotion-link">
+                                (Xem chi tiết)
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <div class="grid__column-3-5">
+            <div class="product-details-right">
+                <div class="product-details-shop">
+                    <div class="product-details-warranty">
+                        <h4 class="product-details-warranty-title">
+                            THÔNG TIN BẢO HÀNH
+                        </h4>
+                        <p class="product-details-warranty-text">
+                            <i class="ti-check-box product-details-warranty-text-icon"></i>
+                            <span>
+                                <strong>Bảo hành chính hãng 12 tháng tại trung tâm bảo hành uỷ quyền Apple Việt Nam</strong>
+                            </span>
+                        </p>
+                        <p class="product-details-warranty-text">
+                            <a href="" class="product-details-warranty-link">
+                                <i class="ti-check-box product-details-warranty-text-icon"></i>
+                                <span>
+                                    <strong>Bảo hành chính hãng 12 tháng tại trung tâm bảo hành uỷ quyền Apple Việt Nam</strong>
+                                </span>
+                            </a>
+                        </p>
+                    </div>
+
+                    <div class="product-details-check-store">
+                        <div class="product-details-city">
+                            <p class="product-details-city-title">
+                                Chọn màu và xem địa chỉ còn hàng
+                            </p>
+                            <div class="product-details-city-nav">
+                                <i class="ti-location-pin product-details-city-icon"></i>
+                                <span>Hà Nội</span>
+                            </div>
+                            <div class="product-details-city-sub-nav">
+                                <ul class="product-details-city-sub-nav-list">
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Xem tất cả
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Hà Nội
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            TP HCM
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            An Giang
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Bà Rịa - Vũng Tàu
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Bắc Giang
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Bạc Liệu
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Bắc Ninh
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Bình Định
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Bình Dương
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Bình Phước
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Bình Thuận
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Bình Thuận
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Bình Thuận
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Cà Mau
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Cần Thơ
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Đà Nẵng
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Đà Nẵng
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Đà Nẵng
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Đắk Lắk
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Đắk Nông
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Điện Biên
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Đồng Nai
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Đông Tháp
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Gia Lai
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Hà Tĩnh
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Hải Phòng
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Hòa Bình
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Hưng Yên
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Khánh Hòa
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Kiên Giang
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Lâm Đồng
+                                        </a>
+                                    </li>
+                                    <li class="product-details-city-sub-nav-item">
+                                        <a href="" class="product-details-city-sub-nav-link">
+                                            Lào Cai
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="product-details-stock-sum">
+                            <span>
+                                Có <strong>10</strong> cửa hàng còn sản phẩm
+                            </span>
+                        </div>
+
+                        <div class="product-details-store">
+                            <ul class="product-details-store-list">
+                                <li class="product-details-store-item">
+                                    <div class="product-details-store-address">
+                                        <i class="ti-control-play product-details-store-icon"></i>
+                                        <span class="product-details-store-text">
+                                            348 Hồ Tùng Mậu, Cầu Diễn, Từ Liêm, Hà Nội
+                                        </span>
+                                    </div>
+                                    <div class="product-details-store-data">
+                                        <strong>
+                                            <i class="ti-headphone-alt product-details-store-icon"></i>
+                                            <span class="product-details-store-text">
+                                                <a href="tel:0968.218.919">0968.218.919 -</a>
+                                            </span>
+                                        </strong>
+                                        <i class="ti-location-pin product-details-store-icon"></i>
+                                        <a href="https://hoanghamobile.com/348-ho-tung-mau-cau-dien-tu-liem" class="product-details-store-link">Chỉ đường</a>
+                                    </div>
+                                </li>
+                                <li class="product-details-store-item">
+                                    <div class="product-details-store-address">
+                                        <i class="ti-control-play product-details-store-icon"></i>
+                                        <span class="product-details-store-text">
+                                            102 Phố Xốm, Phú Lãm, Hà Đông, Hà Nội
+                                        </span>
+                                    </div>
+                                    <div class="product-details-store-data">
+                                        <strong>
+                                            <i class="ti-headphone-alt product-details-store-icon"></i>
+                                            <span class="product-details-store-text">
+                                                <a href="tel:0818.576.586">0818.576.586 -</a>
+                                            </span>
+                                        </strong>
+                                        <i class="ti-location-pin product-details-store-icon"></i>
+                                        <a href="" class="product-details-store-link">Chỉ đường</a>
+                                    </div>
+                                </li>
+                                <li class="product-details-store-item">
+                                    <div class="product-details-store-address">
+                                        <i class="ti-control-play product-details-store-icon"></i>
+                                        <span class="product-details-store-text">
+                                            392 Trương Định, Hoàng Mai, Hà Nội
+                                        </span>
+                                    </div>
+                                    <div class="product-details-store-data">
+                                        <strong>
+                                            <i class="ti-headphone-alt product-details-store-icon"></i>
+                                            <span class="product-details-store-text">
+                                                <a href="tel:0968.218.919">0968.218.919 -</a>
+                                            </span>
+                                        </strong>
+                                        <i class="ti-location-pin product-details-store-icon"></i>
+                                        <a href="" class="product-details-store-link">Chỉ đường</a>
+                                    </div>
+                                </li>
+                                <li class="product-details-store-item">
+                                    <div class="product-details-store-address">
+                                        <i class="ti-control-play product-details-store-icon"></i>
+                                        <span class="product-details-store-text">
+                                            368 Nguyễn Trãi, Thanh Xuân, Hà Nội
+                                        </span>
+                                    </div>
+                                    <div class="product-details-store-data">
+                                        <strong>
+                                            <i class="ti-headphone-alt product-details-store-icon"></i>
+                                            <span class="product-details-store-text">
+                                                <a href="tel:0968.218.919">0968.218.919 -</a>
+                                            </span>
+                                        </strong>
+                                        <i class="ti-location-pin product-details-store-icon"></i>
+                                        <a href="" class="product-details-store-link">Chỉ đường</a>
+                                    </div>
+                                </li>
+                                <li class="product-details-store-item">
+                                    <div class="product-details-store-address">
+                                        <i class="ti-control-play product-details-store-icon"></i>
+                                        <span class="product-details-store-text">
+                                            194 Lê Duẩn, Hà Nội
+                                        </span>
+                                    </div>
+                                    <div class="product-details-store-data">
+                                        <strong>
+                                            <i class="ti-headphone-alt product-details-store-icon"></i>
+                                            <span class="product-details-store-text">
+                                                <a href="tel:0968.218.919">0968.218.919 -</a>
+                                            </span>
+                                        </strong>
+                                        <i class="ti-location-pin product-details-store-icon"></i>
+                                        <a href="" class="product-details-store-link">Chỉ đường</a>
+                                    </div>
+                                </li>
+                                <li class="product-details-store-item">
+                                    <div class="product-details-store-address">
+                                        <i class="ti-control-play product-details-store-icon"></i>
+                                        <span class="product-details-store-text">
+                                            382 Nguyễn Văn Cừ, Hà Nội
+                                        </span>
+                                    </div>
+                                    <div class="product-details-store-data">
+                                        <strong>
+                                            <i class="ti-headphone-alt product-details-store-icon"></i>
+                                            <span class="product-details-store-text">
+                                                <a href="tel:0968.218.919">0968.218.919 -</a>
+                                            </span>
+                                        </strong>
+                                        <i class="ti-location-pin product-details-store-icon"></i>
+                                        <a href="" class="product-details-store-link">Chỉ đường</a>
+                                    </div>
+                                </li>
+                                <li class="product-details-store-item">
+                                    <div class="product-details-store-address">
+                                        <i class="ti-control-play product-details-store-icon"></i>
+                                        <span class="product-details-store-text">
+                                            122 Thái Hà, Hà Nội
+                                        </span>
+                                    </div>
+                                    <div class="product-details-store-data">
+                                        <strong>
+                                            <i class="ti-headphone-alt product-details-store-icon"></i>
+                                            <span class="product-details-store-text">
+                                                <a href="tel:0968.218.919">0968.218.919 -</a>
+                                            </span>
+                                        </strong>
+                                        <i class="ti-location-pin product-details-store-icon"></i>
+                                        <a href="" class="product-details-store-link">Chỉ đường</a>
+                                    </div>
+                                </li>
+                                <li class="product-details-store-item">
+                                    <div class="product-details-store-address">
+                                        <i class="ti-control-play product-details-store-icon"></i>
+                                        <span class="product-details-store-text">
+                                            126 Phố Huế, Hà Nội
+                                        </span>
+                                    </div>
+                                    <div class="product-details-store-data">
+                                        <strong>
+                                            <i class="ti-headphone-alt product-details-store-icon"></i>
+                                            <span class="product-details-store-text">
+                                                <a href="tel:0968.218.919">0968.218.919 -</a>
+                                            </span>
+                                        </strong>
+                                        <i class="ti-location-pin product-details-store-icon"></i>
+                                        <a href="" class="product-details-store-link">Chỉ đường</a>
+                                    </div>
+                                </li>
+                                <li class="product-details-store-item">
+                                    <div class="product-details-store-address">
+                                        <i class="ti-control-play product-details-store-icon"></i>
+                                        <span class="product-details-store-text">
+                                            392 Cầu Giấy, Hà Nội
+                                        </span>
+                                    </div>
+                                    <div class="product-details-store-data">
+                                        <strong>
+                                            <i class="ti-headphone-alt product-details-store-icon"></i>
+                                            <span class="product-details-store-text">
+                                                <a href="tel:0968.218.919">0968.218.919 -</a>
+                                            </span>
+                                        </strong>
+                                        <i class="ti-location-pin product-details-store-icon"></i>
+                                        <a href="" class="product-details-store-link">Chỉ đường</a>
+                                    </div>
+                                </li>
+                                <li class="product-details-store-item">
+                                    <div class="product-details-store-address">
+                                        <i class="ti-control-play product-details-store-icon"></i>
+                                        <span class="product-details-store-text">
+                                            259 Lạc Long Quân, Phường Nghĩa Đô, Quận Cầu Giấy, Hà Nội
+                                        </span>
+                                    </div>
+                                    <div class="product-details-store-data">
+                                        <strong>
+                                            <i class="ti-headphone-alt product-details-store-icon"></i>
+                                            <span class="product-details-store-text">
+                                                <a href="tel:0968.218.919">0968.218.919 -</a>
+                                            </span>
+                                        </strong>
+                                        <i class="ti-location-pin product-details-store-icon"></i>
+                                        <a href="" class="product-details-store-link">Chỉ đường</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="product-details-shop-out-date">
+                        <p class="product-details-shop-out-date-title">
+                            <strong>
+                                <a href="https://hoanghamobile.com/kho-san-pham-cu/iphone-14-pro-max-128gb-chinh-hang-vn-a-p33139" class="product-details-shop-out-date-link">
+                                    ĐTDĐ Apple iPhone 14 Pro Max 128GB Gold_MQ9R3VN/A - TBH
+                                </a>
+                            </strong>
+                        </p>
+                        <div class="product-details-shop-out-date-note">
+                            <p class="product-details-shop-out-date-text">
+                                <span class="product-details-shop-out-date-desc">Giá chỉ từ:</span>
+                                <strong>
+                                    <span class="product-details-shop-out-date-price">
+                                        24,790,000 ₫
+                                    </span>
+                                </strong>
+                            </p>
+                            <p class="product-details-shop-out-date-text">
+                                <span class="product-details-shop-out-date-desc">Tiết kiệm:</span>
+                                <strong>
+                                    <span class="product-details-shop-out-date-price">
+                                        1,760,000 ₫
+                                    </span>
+                                </strong>
+                            </p>
+                            <p class="product-details-shop-out-date-text">
+                                <span class="product-details-shop-out-date-desc">Bảo hành chính hãng tới:</span>
+                                <strong>
+                                    <span class="product-details-shop-out-date-time">
+                                        15/03/2024
+                                    </span>
+                                </strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid__row">
+        <div class="grid__column-7">
+            <div class="product-details-content-text">
+                <p class="product-details-content-text-desc">
+                    Tất cả iPhone chính hãng VN/A được phân phối tại Hoàng Hà Mobile
+                    đều được nhập trực tiếp từ Công ty TNHH Apple Việt Nam.
+                    HoangHa Mobile là nhà bán lẻ ủy quyền chính thức của Apple tại Việt Nam.
+                </p>
+                <div class="product-details-content-text-img">
+                    <img src="~/Content/css/img/apple-chinh-hang.jpg" alt="">
+                </div>
+                <p class="product-details-content-text-sub-desc">
+                    Tem ICT có trên các sản phẩm iPhone chính hãng VN/A
+                </p>
+            </div>
+        </div>
+        <div class="grid__column-5">
+            <div class="product-details-specs">
+                <h3 class="product-details-specs-title">
+                    Thông số kỹ thuật @Model.TenSP
+                </h3>
+                <div class="product-details-specs-img">
+                    @if (!string.IsNullOrEmpty(Model.HinhAnh))
+                    {
+                        <img src="@Url.Content(Model.HinhAnh)" alt="Hình ảnh sản phẩm">
+                    }
+                    else
+                    {
+                        <span>Không có ảnh</span>
+                    }
+                </div>
+                <div class="product-details-specs-btn">
+                    <a href="" class="product-details-specs-btn-link">
+                        <i class="ti-settings product-details-specs-icon"></i>
+                        <span class="product-details-specs-btn-txt">
+                            Cấu hình chi tiết
+                        </span>
+                    </a>
+                </div>
+                <div class="product-details-specs-special">
+                    <ul class="product-details-specs-list">
+                        <li class="product-details-specs-item">
+                            <span class="product-details-specs-item-parameter">
+                                <strong>Công nghệ màn hình:</strong>
+                                Oled
+                            </span>
+                        </li>
+                        <li class="product-details-specs-item">
+                            <span class="product-details-specs-item-parameter">
+                                <strong>Độ phân giải:</strong>
+                                @Model.DoPhanGiai
+                            </span>
+                        </li>
+                        <li class="product-details-specs-item">
+                            <span class="product-details-specs-item-parameter">
+                                <strong>Màn hình rộng:</strong>
+                                @Model.ManHinh
+                            </span>
+                        </li>
+                        <li class="product-details-specs-item">
+                            <span class="product-details-specs-item-parameter">
+                                <strong>Độ phân giải camera:</strong>
+                                Chính 48 MP & Phụ 12 MP, 12MP, 12MP
+                            </span>
+                        </li>
+                        <li class="product-details-specs-item">
+                            <span class="product-details-specs-item-parameter">
+                                <strong>Hệ điều hành:</strong>
+                                @Model.ViXuLy
+                            </span>
+                        </li>
+                        <li class="product-details-specs-item">
+                            <span class="product-details-specs-item-parameter">
+                                <strong>Chip xử lý (CPU):</strong>
+                                @Model.ViXuLy
+                            </span>
+                        </li>
+                        <li class="product-details-specs-item">
+                            <span class="product-details-specs-item-parameter">
+                                <strong>Bộ nhớ trong (ROM):</strong>
+                                @Model.BoNho
+                            </span>
+                        </li>
+                        <li class="product-details-specs-item">
+                            <span class="product-details-specs-item-parameter">
+                                <strong>Ram:</strong>
+                                @Model.Ram
+                            </span>
+                        </li>
+                        <li class="product-details-specs-item">
+                            <span class="product-details-specs-item-parameter">
+                                <strong>Mạng di động:</strong>
+                                Hỗ trợ 5G
+                            </span>
+                        </li>
+                        <li class="product-details-specs-item">
+                            <span class="product-details-specs-item-parameter">
+                                <strong>Số khe sim:</strong>
+                                1 Nano SIM & 1 eSIM
+                            </span>
+                        </li>
+                        <li class="product-details-specs-item">
+                            <span class="product-details-specs-item-parameter">
+                                <strong>Dung lượng pin:</strong>
+                                @Model.DungLuongPin
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="thongBaoMuaHang-@Model.MaSP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thông báo mua hàng thành công</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>Cảm ơn bạn đã mua hàng! Thông tin đơn hàng của bạn đã được ghi nhận.</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Kiểm tra xem có thông báo mua hàng không
+    var thongBaoMuaHang = '@TempData["ThongBaoMuaHang"]';
+
+    // Nếu có thông báo, hiển thị modal
+    if (thongBaoMuaHang) {
+        $('#thongBaoMuaHang-' + '@Model.MaSP').modal('show');
+    }
+</script>
+<div class="modal fade" id="thongThemGioHang-@Model.MaSP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>Chúc mừng bạn đã thêm vào giỏ hàng thành công.</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Kiểm tra xem có thông báo mua hàng không
+    var thongThemGioHang = '@TempData["ThongThemGioHang"]';
+
+    // Nếu có thông báo, hiển thị modal
+    if (thongThemGioHang) {
+        $('#thongThemGioHang-' + '@Model.MaSP').modal('show');
+    }
+</script>

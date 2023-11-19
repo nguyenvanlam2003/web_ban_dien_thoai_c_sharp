@@ -1,0 +1,90 @@
+﻿@{
+    int userId = ViewBag.userId != null ? int.Parse(ViewBag.userId.ToString()) : 0;
+    var db = new web_nag_cao.Models.Web_nag_caoEntities();
+    var ketqua = (from gh in db.GioHangs
+                  join ctGH in db.ChiTietGioHangs on gh.MaGH equals ctGH.MaGH
+                  join sp in db.SanPhams on ctGH.MaSP equals sp.MaSP
+                  where gh.MaKH == userId
+                  select new
+                  {
+                      gh.MaKH,
+                      ctGH.MaSP,
+                      sp.TenSP,
+                      sp.GiaBan,
+                      ctGH.SoLuong,
+                      sp.HinhAnh,
+                      // Thêm các trường khác cần thiết từ các bảng khác
+                  }).ToList();
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/layoutUser.cshtml";
+    ViewBag.SearchAction = "/Home/index";
+    ViewBag.search = ViewBag.timkiem;
+}
+
+<div class="container">
+    <h2>Danh sách sản phẩm trong giỏ hàng</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Mã Sản Phẩm</th>
+                <th>Tên Sản Phẩm</th>
+                <th>Giá Bán</th>
+                <th>Số Lượng</th>
+                <th>Hình Ảnh</th>
+                <!-- Thêm các cột khác nếu cần -->
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ketqua)
+            {
+                <tr>
+                    <td>@item.MaSP</td>
+                    <td>@item.TenSP</td>
+                    <td>@item.GiaBan</td>
+                    <td>@item.SoLuong</td>
+                    <td><img src="@Url.Content(@item.HinhAnh)" alt="Hình ảnh" width="50" height="50" /></td>
+                    <!-- Thêm các cột khác nếu cần -->
+                    <td>
+                        <a href="@Url.Action("muaTrongGioHang","Home",new {id =item.MaSP , maKH=item.MaKH})" class="btn btn-success">Mua</a>
+
+                        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete-@item.MaSP">Delete</a>
+                        <div class="modal fade" id="confirmDelete-@item.MaSP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Mã sản phẩm: @item.MaSP<br />
+                                        Tên sản phẩm:@(string.IsNullOrEmpty(item.TenSP)?"Không có thông tin":item.TenSP)
+                                        <br />
+                                        Số lượng:@item.SoLuong
+                                        <br />
+                                        @if (!string.IsNullOrEmpty(item.HinhAnh))
+                                        {
+                                            <img src="@Url.Content(item.HinhAnh)" alt="Hình ảnh sản phẩm" style="max-width: 100px; max-height: 100px; border: 1px solid #ddd; display: block; margin: 0 auto;">
+                                        }
+                                        else
+                                        {
+                                            <span>Không có ảnh</span>
+                                        }
+                                        <h4>Bạn có chắc chắn muốn xóa?</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                        <!-- Nếu xác nhận, chuyển hướng đến trang xóa -->
+                                        <a href="@Url.Action("xoaGioHang", "Home", new { id = item.MaSP })" class="btn btn-danger">Xác nhận xóa</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
