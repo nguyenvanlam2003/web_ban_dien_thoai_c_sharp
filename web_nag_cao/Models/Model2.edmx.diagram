@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4d9eb259ca3b4c0993f68a4d9f3aa6a4" Name="Diagram1">
+        <EntityTypeShape EntityType="Web_nag_caoModel1.ChiTietGioHang" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_nag_caoModel1.ChiTietHoaDon" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_nag_caoModel1.GioHang" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_nag_caoModel1.HoaDon" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_nag_caoModel1.KhachHang" Width="1.5" PointX="1.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_nag_caoModel1.SanPham" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_nag_caoModel1.sysdiagram" Width="1.5" PointX="3.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_nag_caoModel1.TaiKhoanADmin" Width="1.5" PointX="5.75" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="Web_nag_caoModel1.FK_ChiTietGioHang_GioHang" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_nag_caoModel1.FK_ChiTietGioHang_SanPham" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_nag_caoModel1.FK_ChiTietHoaDon_HoaDon" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_nag_caoModel1.FK_ChiTietHoaDon_SanPham" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_nag_caoModel1.FK_GioHang_KhachHang" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_nag_caoModel1.FK_HoaDon_KhachHang" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

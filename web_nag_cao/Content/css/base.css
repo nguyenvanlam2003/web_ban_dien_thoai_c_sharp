@@ -29,7 +29,9 @@ html {
 .grid__full-width {
     width: 100%;
 }
-
+a {
+    text-decoration: none;
+}
 .grid__row {
     display: flex;
     flex-wrap: wrap;

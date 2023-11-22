@@ -1,6 +1,22 @@
 ﻿
 @{
-    
+    var db = new web_nag_cao.Models.Web_nag_caoEntities();
+    var ketqua = (from hd in db.HoaDons
+                  join ctHD in db.ChiTietHoaDons on hd.MaHD equals ctHD.MaHD
+                  join KH in db.KhachHangs on hd.MaKh equals KH.MaKH
+                  join sp in db.SanPhams on ctHD.MaSP equals sp.MaSP
+                  select new
+                  {
+                      hd.MaHD,
+                      KH.TenKH,
+                      sp.TenSP,
+                      sp.GiaBan,
+                      ctHD.SoLuong,
+                      sp.HinhAnh,
+                  }).ToList();
+    var count = (from hd in db.HoaDons
+                 select hd).Count();
+
 }
 
 <meta charset="UTF-8">
@@ -56,7 +72,7 @@
             <div class="header__cart-wrap">
                 <!-- <i class="header__cart-icon fa-solid fa-cart-shopping"></i> -->
                 <i class="ti-shopping-cart header__cart-icon"></i>
-                <span class="header__cart-notice">2</span>
+                <span class="header__cart-notice">@count</span>
                 <!-- No cart : header__cart-list-no-cart -->
                 <div class="header__cart-list">
                     <img src="~/Content/css/img/no-item.png" alt="" class="header__cart-no-cart-img">
@@ -66,45 +82,26 @@
                     <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
                     <ul class="header__cart-list-item">
                         <!-- Cart item -->
-                        <li class="header__cart-item">
-                            <img src="~/Content/css/img/Iphone.webp" alt="" class="header__cart-img">
-                            <div class="header__cart-item-info">
-                                <div class="header__cart-item-head">
-                                    <h5 class="header__cart-item-name">iPhone 14 pro max</h5>
-                                    <div class="header__cart-item-price-wrap">
-                                        <span class="header__cart-item-price">30,150,000đ</span>
-                                        <span class="header__cart-item-multiply">x</span>
-                                        <span class="header__cart-item-qnt">1</span>
+                        @foreach (var item in ketqua)
+                        {
+                            <li class="header__cart-item">
+                                <img src="@Url.Content(@item.HinhAnh)" alt="" class="header__cart-img">
+                                <div class="header__cart-item-info">
+
+                                    <div class="header__cart-item-head">
+                                        <h5 class="header__cart-item-name">@item.TenSP</h5>
+                                        <div class="header__cart-item-price-wrap">
+                                            <span class="header__cart-item-price">@(item.GiaBan != null ? item.GiaBan.Value.ToString("N0") + "đ" : "Không có thông tin")</span>
+                                            <span class="header__cart-item-multiply">x</span>
+                                            <span class="header__cart-item-qnt">@item.SoLuong</span>
+                                        </div>
                                     </div>
+
+
                                 </div>
-                                <div class="header__cart-item-body">
-                                    <span class="header__cart-item-description">
-                                        Phân loại: Bạc
-                                    </span>
-                                    <span class="header__cart-item-remove">Xóa</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="header__cart-item">
-                            <img src="~/Content/css/img/samsung.webp" alt="" class="header__cart-img">
-                            <div class="header__cart-item-info">
-                                <div class="header__cart-item-head">
-                                    <h5 class="header__cart-item-name">Samsung Galaxy S23 Ultra</h5>
-                                    <div class="header__cart-item-price-wrap">
-                                        <span class="header__cart-item-price">23,990,000đ</span>
-                                        <span class="header__cart-item-multiply">x</span>
-                                        <span class="header__cart-item-qnt">2</span>
-                                    </div>
-                                </div>
-                                <div class="header__cart-item-body">
-                                    <span class="header__cart-item-description">
-                                        Phân loại: Kem
-                                    </span>
-                                    <span class="header__cart-item-remove">Xóa</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                            </li>
+                        }
+                        </ul>
                 </div>
             </div>
         </div>
@@ -133,7 +130,7 @@
                 </a>
             </li>
             <li class="header__navbar-item">
-                <a href="~/news.html" class="header__navbar-item-link">
+                <a href="@Url.Action("hienThiHD", "HoaDon")" class="header__navbar-item-link">
                     <!-- <i class="fa-solid fa-newspaper header__navbar-icon"></i> -->
                     <i class="ti-receipt header__navbar-icon"></i>
                     <span>Hóa đơn</span>
@@ -141,11 +138,13 @@
             </li>
 
             <li class="header__navbar-item">
-                <div class="header__navbar-item-link js-login">
-                    @*<i class="ti-user header__navbar-icon"></i>*@
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    <span>Đăng xuất</span>
-                </div>
+                <a href="@Url.Action("logout", "Admin")" class="header__navbar-item-link">
+                    <div class="header__navbar-item-link js-login">
+                        @*<i class="ti-user header__navbar-icon"></i>*@
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <span>Đăng xuất</span>
+                    </div>
+                </a>
             </li>
         </ul>
     </nav>

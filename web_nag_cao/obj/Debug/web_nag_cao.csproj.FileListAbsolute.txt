@@ -1,3 +1,4 @@
+D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\obj\Debug\web_nag_cao.csproj.CoreCompileInputs.cache
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\web_nag_cao.dll.config
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\web_nag_cao.dll
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\web_nag_cao.pdb
@@ -50,6 +51,8 @@ D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\roslyn\vbc.exe.config
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\roslyn\vbc.rsp
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\roslyn\VBCSCompiler.exe
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\roslyn\VBCSCompiler.exe.config
+D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\EntityFramework.dll
+D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\EntityFramework.SqlServer.dll
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\Microsoft.Web.Infrastructure.dll
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\System.Web.Helpers.dll
@@ -58,6 +61,8 @@ D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\System.Web.Razor.dll
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\System.Web.Webpages.Deployment.dll
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\System.Web.Webpages.dll
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\System.Web.Webpages.Razor.dll
+D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\EntityFramework.xml
+D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\EntityFramework.SqlServer.xml
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\System.Web.Razor.xml
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\System.Web.Webpages.xml
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\System.Web.Webpages.Deployment.xml
@@ -65,12 +70,7 @@ D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\System.Web.Webpages.Raz
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\System.Web.Helpers.xml
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\System.Web.Mvc.xml
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\obj\Debug\web_nag_cao.csproj.CoreCompileInputs.cache
+D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\obj\Debug\web_nag_cao.csproj.AssemblyReference.cache
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\obj\Debug\web_nag_cao.csproj.CopyComplete
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\obj\Debug\web_nag_cao.dll
 D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\obj\Debug\web_nag_cao.pdb
-D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\EntityFramework.dll
-D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\EntityFramework.SqlServer.dll
-D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\EntityFramework.xml
-D:\Lap trinh web nang cao C#\web_nag_cao\web_nag_cao\bin\EntityFramework.SqlServer.xml
-D:\Lap trinh web nang cao C#\Web_nag_cao\web_nag_cao\obj\Debug\web_nag_cao.csproj.AssemblyReference.cache

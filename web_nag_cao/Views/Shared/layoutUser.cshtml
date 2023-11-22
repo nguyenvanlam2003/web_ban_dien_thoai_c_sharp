@@ -1,5 +1,30 @@
 ﻿@{
+    string username = Request.Cookies["UserSession"]?.Value;
+    int id = Request.Cookies["UserSession"]?["UserId"] != null ? int.Parse(Request.Cookies["UserSession"]["UserId"]) : 0;
 
+    //int userId = ViewBag.userId != null ? int.Parse(ViewBag.userId.ToString()) : 0;
+    var db = new web_nag_cao.Models.Web_nag_caoEntities();
+    //var ketqua = (from gh in db.GioHangs
+    //              join ctGH in db.ChiTietGioHangs on gh.MaGH equals ctGH.MaGH
+    //              join sp in db.SanPhams on ctGH.MaSP equals sp.MaSP
+    //              where gh.MaKH == id
+    //              select new
+    //              {
+    //                  gh.MaKH,
+    //                  ctGH.MaSP,
+    //                  sp.TenSP,
+    //                  sp.GiaBan,
+    //                  ctGH.SoLuong,
+    //                  sp.HinhAnh,
+    //                  sp.Mau,
+    //                  // Thêm các trường khác cần thiết từ các bảng khác
+    //              }).ToList();
+
+    var count = db.ChiTietGioHangs
+.Join(db.GioHangs, ctgh => ctgh.MaGH, gh => gh.MaGH, (ctgh, gh) => new { ctgh, gh })
+.Where(x => x.gh.MaKH == id)
+.Select(x => x.ctgh)
+.Count();
 }
 
 <meta charset="UTF-8">
@@ -11,7 +36,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="~/Content/css/main.js"></script>
+<script  type="text/javascript" src="~/Content/css/main.js"></script>
 <link rel="stylesheet" href="~/Content/css/base.css">
 <link rel="stylesheet" href="~/Content/css/main.css">
 <link rel="stylesheet" href="~/main.js">
@@ -52,14 +77,63 @@
             </a>
         </div>
 
+        @*<div class="header__cart">
+                <div class="header__cart-wrap">
+                    <a href="@Url.Action("gioHang", "Home")">
+                        <i class="ti-shopping-cart header__cart-icon"></i>
+                        <span class="header__cart-notice">+</span>
+                    </a>
+                </div>
+            </div>*@
+
         <div class="header__cart">
             <div class="header__cart-wrap">
                 <a href="@Url.Action("gioHang", "Home")">
+                    <!-- <i class="header__cart-icon fa-solid fa-cart-shopping"></i> -->
                     <i class="ti-shopping-cart header__cart-icon"></i>
-                    <span class="header__cart-notice">+</span>
+                    <span class="header__cart-notice">@count</span>
+                    <!-- No cart : header__cart-list-no-cart -->
+                    @*<div class="header__cart-list">
+                        <img src="./assets/css/img/no-item.png" alt="" class="header__cart-no-cart-img">
+                        <span class="header__cart-list-no-cart-msg">
+                            Chưa có sản phẩm
+                        </span>
+                        <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
+                        <ul class="header__cart-list-item">
+
+                            @foreach (var item in ketqua)
+                            {
+                                <li class="header__cart-item">
+                                    <img src="@Url.Content(@item.HinhAnh)" alt="" class="header__cart-img">
+
+                                    <div class="header__cart-item-info">
+
+                                        <div class="header__cart-item-head">
+                                            <h5 class="header__cart-item-name">@item.TenSP</h5>
+                                            <div class="header__cart-item-price-wrap">
+                                                <span class="header__cart-item-price">@(item.GiaBan != null ? item.GiaBan.Value.ToString("N0") + "đ" : "Không có thông tin")</span>
+                                                <span class="header__cart-item-multiply">x</span>
+                                                <span class="header__cart-item-qnt">@item.SoLuong</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="header__cart-item-body">
+                                            <span class="header__cart-item-description">
+                                                Phân loại: @item.Mau
+                                            </span>
+                                            <a href="@Url.Action("xoaGioHang", "Home", new { id = item.MaSP })" class="header__cart-item-remove">Xóa</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>*@
                 </a>
             </div>
+            
         </div>
+
     </div>
     <nav class="header__navbar">
         <ul class="header__navbar-list">
@@ -78,25 +152,44 @@
                 </a>
             </li>
             <li class="header__navbar-item">
-                <a href="~/news.html" class="header__navbar-item-link">
+                <a href="@Url.Action("hienThiDH", "Home")" class="header__navbar-item-link">
                     @*<i class="fa-solid fa-newspaper header__navbar-icon"></i>*@
-                    <i class="ti-comment-alt header__navbar-icon"></i>
-                    <span>Tin tức</span>
+                    <i class="ti-receipt header__navbar-icon"></i>
+                    <span>Đơn hàng</span>
                 </a>
             </li>
             <li class="header__navbar-item">
-                <a href="~/introduce.html" class="header__navbar-item-link">
+                <a href="@Url.Action("thongtin", "Home")" class="header__navbar-item-link">
                     <!-- <i class="fa-regular fa-address-card header__navbar-icon"></i> -->
                     <i class="ti-info-alt header__navbar-icon"></i>
                     <span>Giới thiệu</span>
                 </a>
             </li>
-            <li class="header__navbar-item">
-                <div class="header__navbar-item-link js-login">
-                    <i class="ti-user header__navbar-icon"></i>
-                    <span>Đăng Nhập</span>
-                </div>
-            </li>
+            @if (Request.Cookies["UserSession"] != null)
+            {
+                // Người dùng đã đăng nhập
+                <li class="header__navbar-item">
+                    <a href="@Url.Action("logout", "Home")" class="header__navbar-item-link">
+                        <div class="header__navbar-item-link js-login">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            <span>Đăng xuất</span>
+                        </div>
+                    </a>
+                </li>
+            }
+            else
+            {
+                // Người dùng chưa đăng nhập
+                <li class="header__navbar-item">
+                    <a href="@Url.Action("login", "Home")" class="header__navbar-item-link">
+                        <div class="header__navbar-item-link js-login">
+                            <i class="ti-user fa-arrow-right-from-bracket"></i>
+                            <span>Đăng nhập</span>
+                        </div>
+                    </a>
+                </li>
+            }
+
         </ul>
     </nav>
 </div>

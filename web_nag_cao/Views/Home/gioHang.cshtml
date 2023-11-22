@@ -4,7 +4,7 @@
     var ketqua = (from gh in db.GioHangs
                   join ctGH in db.ChiTietGioHangs on gh.MaGH equals ctGH.MaGH
                   join sp in db.SanPhams on ctGH.MaSP equals sp.MaSP
-                  where gh.MaKH == userId
+                  where gh.MaKH == userId 
                   select new
                   {
                       gh.MaKH,
@@ -17,8 +17,9 @@
                   }).ToList();
     ViewBag.Title = "Giỏ hàng";
     Layout = "~/Views/Shared/layoutUser.cshtml";
-    ViewBag.SearchAction = "/Home/index";
+    ViewBag.SearchAction = "/Home/gioHang";
     ViewBag.search = ViewBag.timkiem;
+
 }
 
 <div class="container">
@@ -46,8 +47,39 @@
                     <td><img src="@Url.Content(@item.HinhAnh)" alt="Hình ảnh" width="50" height="50" /></td>
                     <!-- Thêm các cột khác nếu cần -->
                     <td>
-                        <a href="@Url.Action("muaTrongGioHang","Home",new {id =item.MaSP , maKH=item.MaKH})" class="btn btn-success">Mua</a>
-
+                        <a href="#" data-toggle="modal" data-target="#confirmBuy-@item.MaSP"  class="btn btn-success">Mua</a>
+                        <div class="modal fade" id="confirmBuy-@item.MaSP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Xác nhận mua hàng</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Mã sản phẩm: @item.MaSP<br />
+                                        Tên sản phẩm: @(string.IsNullOrEmpty(item.TenSP)?"Không có thông tin":item.TenSP)
+                                        <br />
+                                        Số lượng: @item.SoLuong
+                                        <br />
+                                        @if (!string.IsNullOrEmpty(item.HinhAnh))
+                                        {
+                                            <img src="@Url.Content(item.HinhAnh)" alt="Hình ảnh sản phẩm" style="max-width: 100px; max-height: 100px; border: 1px solid #ddd; display: block; margin: 0 auto;">
+                                        }
+                                        else
+                                        {
+                                            <span>Không có ảnh</span>
+                                        }
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                        <!-- Nếu xác nhận, thực hiện hành động mua -->
+                                        <a href="@Url.Action("muaTrongGioHang","Home",new {id =item.MaSP , maKH=item.MaKH})" class="btn btn-danger">Thanh toán</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete-@item.MaSP">Delete</a>
                         <div class="modal fade" id="confirmDelete-@item.MaSP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">

@@ -6,7 +6,7 @@
     height: 185px;
 }
 
-.nut{
+.nut {
     margin: 9px 0;
     color: aliceblue;
 }
@@ -429,6 +429,7 @@
     text-decoration: none;
     display: block;
     color: #fff;
+    font-size: 30px;
 }
 
 

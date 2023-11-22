@@ -145,12 +145,12 @@ namespace web_nag_cao.App_Start
                     };
                     db.ChiTietGioHangs.Add(ctGH);
                     db.SaveChanges();
-                    TempData["ThongThemGioHang"] = "Thêm giỏ hàng thành công!";
+                   
                     return RedirectToAction("chiTietSP", "Home", new { id = id });
                 }
                 else
                 {
-                    ChiTietGioHang ctGH = db.ChiTietGioHangs.Where(row => row.MaSP == id).FirstOrDefault();
+                    ChiTietGioHang ctGH = db.ChiTietGioHangs.Where(row => row.MaSP == id && row.MaGH==gh.MaGH).FirstOrDefault();
                     if (ctGH==null)
                     {
                         ctGH = new ChiTietGioHang
@@ -161,14 +161,14 @@ namespace web_nag_cao.App_Start
                         };
                         db.ChiTietGioHangs.Add(ctGH);
                         db.SaveChanges();
-                        TempData["ThongThemGioHang"] = "Thêm giỏ hàng thành công!";
+                   
                         return RedirectToAction("chiTietSP", "Home", new { id = id });
                     }
                     else
                     {
                         ctGH.SoLuong = ctGH.SoLuong + 1;
                         db.SaveChanges();
-                        TempData["ThongThemGioHang"] = "Thêm giỏ hàng thành công!";
+                    
                         return RedirectToAction("chiTietSP", "Home", new { id = id });
                     }
                     
@@ -177,12 +177,10 @@ namespace web_nag_cao.App_Start
             }
             else
             {
-                // Cookie không tồn tại, có thể người dùng chưa đăng nhập
-                // Hoặc cookie đã hết hạn hoặc bị thay đổi
-                // Tiếp tục xử lý của bạn
+                
                 return RedirectToAction("login", "Home"); // Chuyển hướng đến trang đăng nhập
             }
-             return RedirectToAction("gioHang", "Home");
+            
         }
         public ActionResult login()
         {
@@ -202,7 +200,7 @@ namespace web_nag_cao.App_Start
                 userCookie["UserId"] = nd.MaKH.ToString();
                 userCookie.Expires = DateTime.Now.AddDays(1);
                 Response.Cookies.Add(userCookie);
-                return RedirectToAction("gioHang", "Home");// Điều hướng đến trang chào mừng.
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -292,6 +290,48 @@ namespace web_nag_cao.App_Start
             db.ChiTietGioHangs.Remove(ctgh);
             db.SaveChanges();
             return RedirectToAction("gioHang");
+        }
+
+        public ActionResult thongtin()
+        {
+            return View();
+        }
+        public ActionResult hienThiDH()
+        {
+            string username = Request.Cookies["UserSession"]?.Value;
+
+            if (!string.IsNullOrEmpty(username))
+            {
+                int userId = int.Parse(Request.Cookies["UserSession"]["UserId"]);
+                ViewBag.userId = userId;
+                return View(userId);
+            }
+            else
+            {
+              
+                return RedirectToAction("login", "Home"); // Chuyển hướng đến trang đăng nhập
+            }
+            
+        }
+        public ActionResult huyDH(int mahd, int makh, int mact)
+        {
+            Web_nag_caoEntities db = new Web_nag_caoEntities();
+            HoaDon hd = db.HoaDons.Where(row => row.MaHD == mahd && row.MaKh==makh).FirstOrDefault();
+            ChiTietHoaDon cthd = db.ChiTietHoaDons.Where(row => row.MaHD == mahd && row.ID==mact).FirstOrDefault();
+            db.ChiTietHoaDons.Remove(cthd);
+            db.HoaDons.Remove(hd);
+            db.SaveChanges();
+            return RedirectToAction("hienThiDH", "Home");
+        }
+        public ActionResult logout()
+        {
+            if (Request.Cookies["UserSession"] != null)
+            {
+                var userCookie = new HttpCookie("UserSession");
+                userCookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(userCookie);
+            }
+            return RedirectToAction("Index","Home");
         }
     }
 }

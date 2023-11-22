@@ -19,6 +19,7 @@
                       sp.GiaBan,
                       ctHD.SoLuong,
                       sp.HinhAnh,
+                     
                   }).ToList();
 }
 
@@ -63,14 +64,16 @@
                                     </div>
                                     <div class="modal-body">
                                         Số hóa đơn: @item.MaHD<br />
-                                        Tên khách hàng:@(string.IsNullOrEmpty(item.TenKH)?"Không có thông tin":item.TenKH)
+                                        Tên khách hàng: @(string.IsNullOrEmpty(item.TenKH)?"Không có thông tin":item.TenKH)
+                                        <br />
+                                        Tên sản phẩm: @(string.IsNullOrEmpty(item.TenSP)?"Không có thông tin":item.TenSP)
                                         <br />
                                         <h4>Bạn có chắc chắn muốn xóa?</h4>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                                         <!-- Nếu xác nhận, chuyển hướng đến trang xóa -->
-                                        <a href="@Url.Action("Delete", "Home", new { id = item.MaHD })" class="btn btn-danger">Xác nhận xóa</a>
+                                        <a href="@Url.Action("xoaHD", "HoaDon", new { id = item.MaHD })" class="btn btn-danger">Xác nhận xóa</a>
                                     </div>
                                 </div>
                             </div>
