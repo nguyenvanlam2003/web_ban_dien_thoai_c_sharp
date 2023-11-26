@@ -25,7 +25,7 @@
                         <h2 class="text-center">Hãy Đăng Nhập Để Mua Hàng</h2>
                     </div>
                     <div class="card-body">
-    <form action="@Url.Action("login", "Home")" method="post">
+                        <form action="@Url.Action("login", "Home")" method="post">
                             <div class="form-group">
                                 <label for="username">Tên đăng nhập:</label>
                                 <input type="text" class="form-control" id="username" name="username" required />
@@ -36,12 +36,13 @@
                             </div>
                             <button type="submit" class="btn btn-success btn-block">Đăng Nhập</button>
                         </form>
+                        <div class="text-center mt-3">
+                            <p>Bạn chưa có tài khoản? <a href="@Url.Action("register", "Home")">Đăng ký ngay</a></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    
 </body>
 </html>

@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Sửa Hóa Đơn";
     Layout = null;
     int mahd = ViewBag.MaHD;
@@ -18,7 +19,7 @@
                       ctHD.SoLuong,
                       ctHD.MaSP,
                       sp.HinhAnh,
-                  }).ToList();
+                  }).FirstOrDefault();
 }
 <!-- Chèn các tệp CSS và JS của Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,56 +30,92 @@
 
     @using (Html.BeginForm("suaHD", "HoaDon", FormMethod.Post, new { @class = "form-horizontal" }))
     {
-        foreach (var item in ketqua)
-        {
+       
             <div class="form-group">
                 <label class="control-label col-md-2" for="MaHD">Số Hóa Đơn: </label>
                 <div class="col-md-10">
-                    @Html.TextBoxFor(model => item.MaHD, new { @class = "form-control" })
+                    @Html.TextBox("MaHD",ketqua.MaHD, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-md-2" for="MaKh">Tên Khách Hàng:</label>
                 <div class="col-md-10">
-                    @Html.DropDownList("MaKh", (SelectList)ViewBag.DanhSachTenKhachHang,item.TenKH,  new { @class = "form-control", selected = ViewBag.TenKH })
+                    @*@Html.DropDownListFor(model => ketqua.MaKh, (SelectList)ViewBag.DanhSachTenKhachHang, ketqua.TenKH, new { @class = "form-control" , selected = ketqua.MaKh })*@
+                    @*@{
+                        var selectedTenKhachHang = ((SelectList)ViewBag.DanhSachTenKhachHang).FirstOrDefault(item => item.Value == ketqua.MaKh.ToString())?.Text;
+                    }
+                    @Html.DropDownList("MaKH", (SelectList)ViewBag.DanhSachTenKhachHang, selectedTenKhachHang, new { @class = "form-control", selected = selectedTenKhachHang, value = selectedTenKhachHang })*@
+
+                    <select id="MaKH" name="MaKH" class = "form-control">
+                        @foreach (var item in ViewBag.DanhSachTenKhachHang)
+                        {
+                            int valueAsInt = Convert.ToInt32(item.Value);
+                            if (valueAsInt == ketqua.MaKh)
+                            {
+                                <option value="@valueAsInt" selected>@item.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@valueAsInt" >@item.Text</option>
+                            }
+
+                        }
+                    </select>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-md-2" for="MaSP">Tên Sản Phẩm:</label>
                 <div class="col-md-10">
-                    @Html.DropDownList("MaSP", (SelectList)ViewBag.DanSachSP,item.TenSP ,new { @class = "form-control" })
+                    @*@Html.DropDownList("MaSP", (SelectList)ViewBag.DanSachSP,ketqua.TenSP ,new { @class = "form-control" })*@
+                    <select id="MaSP" name="MaSP" class="form-control">
+                        @foreach (var item in ViewBag.DanSachSP)
+                        {
+                            int valueAsInt = Convert.ToInt32(item.Value);
+                            if (valueAsInt == ketqua.MaSP)
+                            {
+                                <option value="@valueAsInt" selected>@item.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@valueAsInt">@item.Text</option>
+                            }
+
+                        }
+                    </select>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-2" for="GiaBan">Giá Bán:@item.GiaBan</label>
+                <label class="control-label col-md-2" for="GiaBan">Giá Bán:@ketqua.GiaBan</label>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-md-2" for="SoLuong">Số Lượng:</label>
                 <div class="col-md-10">
                     @*@Html.TextBox("SoLuong",model => item.SoLuong, new { @class = "form-control" })*@
-                    @Html.TextBox("SoLuong", item.SoLuong, new { @class = "form-control" })
+                    @Html.TextBox("SoLuong", ketqua.SoLuong, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-md-2" for="HinhAnh">Hình Ảnh:</label>
                 <div class="col-md-10">
-                    <img src="@Url.Content(@item.HinhAnh)" alt="Hình ảnh" width="50" height="50" />
+                    <img src="@Url.Content(ketqua.HinhAnh)" alt="Hình ảnh" width="50" height="50" />
                 </div>
             </div>
 
             <!-- Thêm các trường khác nếu cần -->
-        }
+        
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Lưu" class="btn btn-primary" />
-            </div>
-        </div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Lưu" class="btn btn-success" />
+        <a href="@Url.Action("hienThiHD", "HoaDon")" class="btn btn-secondary">Quay Lại</a>
+    </div>
+    
+</div>
     }
 
 </div>

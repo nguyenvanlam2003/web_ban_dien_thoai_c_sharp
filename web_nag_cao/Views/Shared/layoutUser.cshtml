@@ -36,15 +36,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script  type="text/javascript" src="~/Content/css/main.js"></script>
 <link rel="stylesheet" href="~/Content/css/base.css">
 <link rel="stylesheet" href="~/Content/css/main.css">
-<link rel="stylesheet" href="~/main.js">
+@*<script src="~/Content/css/main.js"></script>*@
+<link rel="stylesheet" href="~/Content/css/main.js">
 <link rel="stylesheet" href="~/Content/fonts/fontawesome-free-6.4.0-web/css/all.min.css">
 <link rel="stylesheet" href="~/Content/fonts/themify-icons/themify-icons.css">
-<head>
-    <script src="~/Content/css/main.js"></script>
-</head>
+
 <div class="grid">
     <div class="header-with-search">
         <div class="header__logo">
@@ -55,16 +53,26 @@
 
         <div class="header__search">
             <div class="header__search-input-wrap">
-                <form action="@Url.Content(ViewBag.SearchAction)">
-                    <input type="text" class="header__search-input"
-                           value="@ViewBag.search"
-                           name="search"
-                           id="search"
-                           placeholder="Hôm nay bạn cần tìm gì?">
-                    <button class="header__search-btn" type="submit">
-                        <i class="header__search-btn-icon ti-search"></i>
-                    </button>
-                </form>
+                <form action="@Url.Content(ViewBag.SearchAction)" >
+            <input type="text" class="header__search-input"
+                   value="@ViewBag.search"
+                   name="search"
+                   id="search"
+                   placeholder="Hôm nay bạn cần tìm gì?">
+            <button class="header__search-btn" type="submit">
+                <i class="header__search-btn-icon ti-search"></i>
+            </button>
+        </form>
+                @*@using (Html.BeginForm("index", "Home", FormMethod.Get))
+                {
+                    <div class="header__search-input-wrap">
+                        @Html.TextBox("search", @ViewBag.search, new { @class = "header__search-input", placeholder = "Hôm nay bạn cần tìm gì?" })
+                        <button type="submit" class="header__search-btn">
+                            <i class="header__search-btn-icon ti-search"></i>
+                        </button>
+                    </div>
+                }*@
+
             </div>
         </div>
         <div class="header__order-check">
@@ -196,7 +204,7 @@
 <div>
     @RenderBody()
 </div>
-
+<script type="text/javascript" src="~/Content/css/main.js"></script>
 
 
 <footer class="footer">
@@ -343,11 +351,39 @@
                 </li>
             </ul>
         </div>
-        <div class="back-to-top">
-            <a href="#header" class="back-to-top__link">
+        <div class="back-to-top" id="back-to-top">
+            <div class="back-to-top__link" onclick="scrollToTop()">
                 <i class="ti-angle-up back-to-top-icon"></i>
-            </a>
+            </div>
         </div>
     </div>
 </footer>
+<script src="~/Content/css/main1.js"></script>
+
+@*<script>
+    // Lấy thẻ div quay lại đầu trang
+    var backToTopButton = document.getElementById('back-to-top');
+
+    // Thêm sự kiện cuộn trang
+    window.onscroll = function () {
+        showBackToTopButton();
+    };
+
+    // Hàm kiểm tra vị trí cuộn và hiển thị nút quay lại đầu trang
+    function showBackToTopButton() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            backToTopButton.style.display = 'block';
+        } else {
+            backToTopButton.style.display = 'none';
+        }
+    }
+
+    // Hàm cuộn đến đầu trang
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+</script>*@
 

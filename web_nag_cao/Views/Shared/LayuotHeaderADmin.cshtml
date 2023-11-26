@@ -30,7 +30,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="~/Content/css/base.css">
 <link rel="stylesheet" href="~/Content/css/main.css">
-<link rel="stylesheet" href="~/main.js">
 <link rel="stylesheet" href="~/Content/fonts/fontawesome-free-6.4.0-web/css/all.min.css">
 <link rel="stylesheet" href="~/Content/fonts/themify-icons/themify-icons.css">
 
@@ -71,7 +70,7 @@
         <div class="header__cart">
             <div class="header__cart-wrap">
                 <!-- <i class="header__cart-icon fa-solid fa-cart-shopping"></i> -->
-                <i class="ti-shopping-cart header__cart-icon"></i>
+                <i class="ti-receipt header__cart-icon"></i>
                 <span class="header__cart-notice">@count</span>
                 <!-- No cart : header__cart-list-no-cart -->
                 <div class="header__cart-list">
@@ -85,7 +84,14 @@
                         @foreach (var item in ketqua)
                         {
                             <li class="header__cart-item">
-                                <img src="@Url.Content(@item.HinhAnh)" alt="" class="header__cart-img">
+                                @if (!string.IsNullOrEmpty(item.HinhAnh))
+                                {
+                                    <img src="@Url.Content(item.HinhAnh)" alt="" class="header__cart-img">
+                                }
+                                else
+                                {
+                                    <span>không có thông tin</span>
+                                }
                                 <div class="header__cart-item-info">
 
                                     <div class="header__cart-item-head">
@@ -101,7 +107,7 @@
                                 </div>
                             </li>
                         }
-                        </ul>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -123,7 +129,7 @@
                 </a>
             </li>
             <li class="header__navbar-item">
-                <a href="@Url.Action("HienThiKH", "KhachHang")"  class="header__navbar-item-link">
+                <a href="@Url.Action("HienThiKH", "KhachHang")" class="header__navbar-item-link">
                     <!-- <i class="fa-sharp fa-solid fa-screwdriver-wrench header__navbar-icon"></i> -->
                     <i class="ti-id-badge header__navbar-icon"></i>
                     <span>Khach Hang</span>

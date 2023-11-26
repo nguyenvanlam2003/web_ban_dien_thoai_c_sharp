@@ -27,14 +27,14 @@ namespace web_nag_cao.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult suaHD(int id , int MaKh, int MaSP, int SoLuong )
+        public ActionResult suaHD(int MaHD, int MaKH, int MaSP, int SoLuong )
         {
             Web_nag_caoEntities db = new Web_nag_caoEntities();
-            HoaDon hd = db.HoaDons.Where(row => row.MaHD == id).FirstOrDefault();
-            ChiTietHoaDon cthd = db.ChiTietHoaDons.Where(row => row.MaHD == id ).FirstOrDefault();
+            HoaDon hd = db.HoaDons.Where(row => row.MaHD == MaHD).FirstOrDefault();
+            ChiTietHoaDon cthd = db.ChiTietHoaDons.Where(row => row.MaHD == MaHD).FirstOrDefault();
             cthd.MaSP = MaSP;
             cthd.SoLuong = SoLuong;
-            hd.MaKh = MaKh;
+            hd.MaKh = MaKH;
             db.SaveChanges();
             return RedirectToAction("hienThiHD");
         }

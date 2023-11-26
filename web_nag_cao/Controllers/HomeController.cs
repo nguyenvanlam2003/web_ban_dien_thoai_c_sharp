@@ -11,6 +11,7 @@ namespace web_nag_cao.App_Start
     {
         // GET: Home
         
+        
         public ActionResult Index(string search = "")
         {
             Web_nag_caoEntities db = new Web_nag_caoEntities();
@@ -332,6 +333,18 @@ namespace web_nag_cao.App_Start
                 Response.Cookies.Add(userCookie);
             }
             return RedirectToAction("Index","Home");
+        }
+        public ActionResult register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult register(KhachHang kh)
+        {
+            Web_nag_caoEntities db = new Web_nag_caoEntities();
+            db.KhachHangs.Add(kh);
+            db.SaveChanges();
+            return RedirectToAction("login", "Home");
         }
     }
 }

@@ -122,7 +122,7 @@
     <Content Include="Content\css\img\slider xiaomi.png" />
     <Content Include="Content\css\img\vnpost.jpg" />
     <Content Include="Content\css\main.css" />
-    <Content Include="Content\css\main.js" />
+    <Content Include="Content\css\main1.js" />
     <Content Include="Content\css\news.css" />
     <Content Include="Content\fonts\themify-icons\themify-icons.css" />
     <Content Include="Content\Site.css" />
@@ -266,6 +266,7 @@
     <Content Include="Views\Admin\login.cshtml" />
     <Content Include="Views\Home\thongtin.cshtml" />
     <Content Include="Views\Home\hienThiDH.cshtml" />
+    <Content Include="Views\Home\register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

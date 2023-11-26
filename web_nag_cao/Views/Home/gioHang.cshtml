@@ -4,7 +4,7 @@
     var ketqua = (from gh in db.GioHangs
                   join ctGH in db.ChiTietGioHangs on gh.MaGH equals ctGH.MaGH
                   join sp in db.SanPhams on ctGH.MaSP equals sp.MaSP
-                  where gh.MaKH == userId 
+                  where gh.MaKH == userId
                   select new
                   {
                       gh.MaKH,

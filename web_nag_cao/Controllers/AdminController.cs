@@ -154,31 +154,37 @@ namespace web_nag_cao.Controllers
             SanPham sp = db.SanPhams.Where(row => row.MaSP == model.MaSP).FirstOrDefault();
             if (ModelState.IsValid)
             {
-
-                // Kiểm tra và xóa ảnh cũ
-                if (!string.IsNullOrEmpty(sp.HinhAnh))
+                if (HinhAnh != null)
                 {
-                    // Lấy tên tệp tin từ đường dẫn
-                    string tenanh = Path.GetFileName(sp.HinhAnh);
-
-                    // Đường dẫn đầy đủ của tệp tin ảnh cũ
-                    string oldFilePath = Path.Combine(Server.MapPath("~/Assets/Img/"), tenanh);
-
-                    // Kiểm tra xem tệp tin tồn tại trước khi xóa
-                    if (System.IO.File.Exists(oldFilePath))
+                    // Kiểm tra và xóa ảnh cũ
+                    if (!string.IsNullOrEmpty(sp.HinhAnh))
                     {
-                        // Xóa tệp tin từ thư mục
-                        System.IO.File.Delete(oldFilePath);
+                        // Lấy tên tệp tin từ đường dẫn
+                        string tenanh = Path.GetFileName(sp.HinhAnh);
+
+                        // Đường dẫn đầy đủ của tệp tin ảnh cũ
+                        string oldFilePath = Path.Combine(Server.MapPath("~/Assets/Img/"), tenanh);
+
+                        // Kiểm tra xem tệp tin tồn tại trước khi xóa
+                        if (System.IO.File.Exists(oldFilePath))
+                        {
+                            // Xóa tệp tin từ thư mục
+                            System.IO.File.Delete(oldFilePath);
+                        }
                     }
                 }
-
                 // Lưu ảnh mới
-                string fileName = Path.GetFileName(HinhAnh.FileName);
+                if (HinhAnh != null)
+                {
+                    string fileName = Path.GetFileName(HinhAnh.FileName);
                 string filePath = Path.Combine(Server.MapPath("~/Assets/Img"), fileName);
                 HinhAnh.SaveAs(filePath);
 
                 // Cập nhật đường dẫn ảnh mới trong model
-                model.HinhAnh = "~/Assets/Img/" + fileName;
+                
+                 model.HinhAnh = "~/Assets/Img/" + fileName;
+                 sp.HinhAnh = model.HinhAnh;
+                }
                 sp.TenSP = model.TenSP;
                 sp.GiaBan = model.GiaBan;
                 sp.HangSX = model.HangSX;
@@ -186,7 +192,6 @@ namespace web_nag_cao.Controllers
                 sp.Mau = model.Mau;
                 sp.Ram = model.Ram;
                 sp.ViXuLy = model.ViXuLy;
-                sp.HinhAnh = model.HinhAnh;
                 sp.DoPhanGiai = model.DoPhanGiai;
                 sp.DungLuongPin = model.DungLuongPin;
                 sp.BoNho = model.BoNho;
